@@ -40,11 +40,11 @@ for _, buttonInfo in ipairs(botones.buttons) do
       :setSize(buttonSize, buttonSize / 2)
 
   -- Calculate Position Based on Grid
-  buttonCount = buttonCount + 1
   local column = (buttonCount - 1) % columns
   local row = math.floor((buttonCount - 1) / columns)
   local positionX = column * (buttonSize + spacing) + gridOffsetX 
   local positionY = row * (buttonSize + spacing)
+  buttonCount = buttonCount + 1
 
   button:setPosition(positionX, positionY)
 
