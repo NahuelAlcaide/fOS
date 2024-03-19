@@ -2,6 +2,7 @@ local IDMesa = 4
 
 local monitorFrame = basalt.createFrame()
 :setBackground(colors.lightGray)
+:hide()
 
 local titulo = monitorFrame:addTextfield()
 :addLine("Control de Puertas")
