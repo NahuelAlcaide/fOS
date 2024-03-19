@@ -13,22 +13,17 @@ local botones = json.decode(data)
 local mainScreen = basalt.createFrame()
     :setBackground(colors.lightBlue)
 
-local titulo = mainScreen:addText()
-    :addLine("fOS")
-    :setPosition("{parent.w / 2 - self.w / 4}", "{parent.h / 8}")
-    :setFontSize(12)
+local titulo = mainScreen:addText("{parent.w / 2 - self.w / 4}", "{parent.h / 8}", "fOS")
 
-local subTitulo = mainScreen:addText()
-    :addLine("Alpha v0.0.1")
-    :setPosition("{parent.w / 2 - self.w / 4}", "{parent.h / 8 + titulo.h}")
+local subTitulo = mainScreen:addText("{parent.w / 2 - self.w / 4}", "{parent.h / 8 + titulo.h}", "Alpha v0.0.1")
 
 --Función para cambiar a la pantalla seleccionada
 local function switchScreen()
     print("test")
 end
 -- Grid Configuration
-local buttonSize = mainScreen.w / 3
-local spacing = 5  -- Space between buttons
+local buttonSize = "{mainScreen.w / 3}"
+local spacing = 4  -- Space between buttons
 local columns = 2  -- Number of buttons per row (adjust as needed)
 
 -- Button Creation Loop
@@ -36,6 +31,7 @@ local buttonCount = 0
 for _, buttonInfo in ipairs(botones.buttons) do
   local button = mainScreen:addButton()
       :setText(buttonInfo.text)
+      :setSize(buttonSize, buttonSize)
 
   -- Calculate Position Based on Grid
   buttonCount = buttonCount + 1
