@@ -1,4 +1,4 @@
-os.loadAPI("fOS/json")
+os.loadAPI("fOS/json.lua")
 
 local basalt = require("basalt")
 
@@ -28,6 +28,10 @@ local buttonSize = math.floor(mainScreen:getWidth() / 3)
 local spacing = 1  -- Space between buttons
 local columns = 2  -- Number of buttons per row (adjust as needed)
 
+-- Grid Offset Calculations 
+local totalGridWidth = (buttonSize * columns) + (spacing * (columns - 1))
+local gridOffsetX = (mainScreen:getWidth() - totalGridWidth) / 2
+
 -- Button Creation Loop
 local buttonCount = 0 
 for _, buttonInfo in ipairs(botones.buttons) do
@@ -39,7 +43,7 @@ for _, buttonInfo in ipairs(botones.buttons) do
   buttonCount = buttonCount + 1
   local column = (buttonCount - 1) % columns
   local row = math.floor((buttonCount - 1) / columns)
-  local positionX = column * (buttonSize + spacing)
+  local positionX = column * (buttonSize + spacing) + gridOffsetX 
   local positionY = row * (buttonSize + spacing)
 
   button:setPosition(positionX, positionY)
