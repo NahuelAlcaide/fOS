@@ -1,5 +1,7 @@
 local IDMesa = 4
 
+local basalt = require("../basalt")
+
 local monitorFrame = basalt.createFrame()
 :setBackground(colors.lightGray)
 :hide()
