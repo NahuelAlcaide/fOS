@@ -30,21 +30,21 @@ local columns = 2  -- Number of buttons per row (adjust as needed)
 
 -- Grid Offset Calculations 
 local totalGridWidth = (buttonSize * columns) + (spacing * (columns - 1))
-local gridOffsetX = (mainScreen:getWidth() - totalGridWidth) / 2
+local gridOffsetX = math.ceil((mainScreen:getWidth() - totalGridWidth) / 2)
 
 -- Button Creation Loop
 local buttonCount = 0 
 for _, buttonInfo in ipairs(botones.buttons) do
   local button = mainScreen:addButton()
       :setText(tostring(buttonInfo.text))
-      :setSize(buttonSize, buttonSize / 2)
+      :setSize(buttonSize, buttonSize / 2 + 1)
 
   -- Calculate Position Based on Grid
   buttonCount = buttonCount + 1
   local column = (buttonCount - 1) % columns
   local row = math.floor((buttonCount - 1) / columns)
   local positionX = column * (buttonSize + spacing) + gridOffsetX 
-  local positionY = row * (buttonSize + spacing)
+  local positionY = row * (button:getHeight() + spacing)
 
   button:setPosition(positionX, positionY)
 
