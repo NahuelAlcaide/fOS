@@ -39,4 +39,12 @@ botonMesa:onClickUp(function(self,event,button,x,y)
     botonMesa:setShadow(colors.gray)
 end)
 
+local function showScreen()
+    monitorFrame:show()
+end
+
+return {
+    show = showScreen,
+}
+
 basalt.autoUpdate()

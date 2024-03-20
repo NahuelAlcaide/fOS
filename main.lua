@@ -2,25 +2,33 @@ os.loadAPI("fOS/json.lua")
 
 local basalt = require("basalt")
 
---local puertas = require("puertas.puertas")
+local puertas = require("puertas.puertas")
 
-
+--Abrir json y decoding
 local file = fs.open("fOS/botonesMain.json", "r") 
 local data = file.readAll()
 file.close()
 local botones = json.decode(data)
 
-local mainScreen = basalt.createFrame()
+--Crear frame principal + scroll
+local screen = basalt.createFrame()    
     :setBackground(colors.lightBlue)
     :show()
 
---local titulo = mainScreen:addText(mainScreen:getWidth() / 2, mainScreen:getHeight() / 8, "fOS")
+local titulo = screen:addLabel():setText("fOS"):setBackground(colors.lightBlue)
 
---local subTitulo = mainScreen:addText(mainScreen:getWidth() / 2, mainScreen:getHeight() / 8 + titulo:getHeight(), "Alpha v0.0.1")
+titulo:setPosition(screen:getWidth() / 2 - titulo:getWidth(), 1):setFontSize(2)
+
+local mainScreen = screen:addScrollableFrame()
+    :setSize(screen:getWidth() - 2, screen:getHeight() - 4)
+    :setPosition(2, 4)
+    :setDirection("vertical")
+    :setBackground(colors.lightBlue)
 
 --Función para cambiar a la pantalla seleccionada
-local function switchScreen()
-    print("test")
+local function switchScreen(path)
+    local targetMenu = require(path)
+    targetMenu.show()
 end
 
 -- Grid Configuration
@@ -37,21 +45,23 @@ local buttonCount = 0
 for _, buttonInfo in ipairs(botones.buttons) do
   local button = mainScreen:addButton()
       :setText(tostring(buttonInfo.text))
-      :setSize(buttonSize, buttonSize / 2 + 1)
+      :setSize(buttonSize, buttonSize / 2)
+      :setBackground(colors.blue)
+      :setBorder(colors.black)
 
   -- Calculate Position Based on Grid
   buttonCount = buttonCount + 1
   local column = (buttonCount - 1) % columns
   local row = math.floor((buttonCount - 1) / columns)
   local positionX = column * (buttonSize + spacing) + gridOffsetX 
-  local positionY = row * (button:getHeight() + spacing)
+  local positionY = spacing + row * (button:getHeight() + spacing)
 
   button:setPosition(positionX, positionY)
 
   -- Click Event Handler
   button:onClick(function(self, event, buttonType, x, y) -- Small change here
     if event == "mouse_click" and buttonType == 1 then 
-        switchScreen()
+        switchScreen(buttonInfo.path)
     end
 end)
 end
